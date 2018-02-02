@@ -63,6 +63,8 @@ std::istream &operator>>(std::istream &is, Sudoku &sa){
     return is;
 }
 
+//creates everything needed for the user interface to work correctly
+
 void Sudoku::create(){
     diagonals();
     insert(9,3,2);
@@ -73,6 +75,9 @@ void Sudoku::create(){
     insert(6,9,0);
     createProb();
 }
+
+//creates an uncompleted array given to the user based on the difficulty
+
 void Sudoku::createProb(){
     int mod = 11 - difficulty;
     for (int y = 0; y!= 9; y++) {
@@ -88,6 +93,8 @@ void Sudoku::createProb(){
     }
 }
 
+//spits out the answer key for the user's sudoku array
+
 void Sudoku::answer(){
     for (int y = 0; y!=9; y++) {
         printf(" %i %i %i | %i %i %i | %i %i %i\n", sudokuArray[y][0],sudokuArray[y][1],sudokuArray[y][2],sudokuArray[y][3],sudokuArray[y][4],sudokuArray[y][5],sudokuArray[y][6],sudokuArray[y][7],sudokuArray[y][8]);
@@ -96,6 +103,8 @@ void Sudoku::answer(){
         }
     }
 }
+
+//used to fill in the rest of the sudoku array
 
 void Sudoku::insert(int xMax, int yMax, int check){
     std::map<int, std::vector<int>> box;
@@ -198,6 +207,8 @@ void Sudoku::insert(int xMax, int yMax, int check){
     }
 }
 
+// creates the diagonal boxes in the sudoku based on which sudoku the user chooses
+
 void Sudoku::diagonals(){
     int mod = 7+choice*2;
     for(int y = 0; y < 9; y++){
@@ -226,6 +237,8 @@ void Sudoku::diagonals(){
     }
 }
 
+//runs user interface for entering answers and receiving feedback
+
 void enterAns(Sudoku sudoku){
     int errors = 0;
     for (int a = 0; a < 9; a++) {
@@ -237,14 +250,10 @@ void enterAns(Sudoku sudoku){
                 if (num == sudoku.sudokuArray[a][b]) {
                     sudoku.probArray[a][b] = num;
                 }
-            }
-        }
-    }
-    for (int a = 0; a < 9; a++) {
-        for (int b = 0; b <9; b++) {
-            if (sudoku.probArray[a][b] == 0) {
-                printf("Error at row %i, column %i.\n",a+1,b+1);
+                else{
+                    printf("Error at row %i, column %i.\n",a+1,b+1);
                 errors++;
+                }
             }
         }
     }
@@ -286,6 +295,3 @@ int main(){
     
     return 0;
 }
-
-
-
