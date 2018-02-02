@@ -252,7 +252,7 @@ void enterAns(Sudoku sudoku){
                 }
                 else{
                     printf("Error at row %i, column %i.\n",a+1,b+1);
-                errors++;
+                    errors++;
                 }
             }
         }
